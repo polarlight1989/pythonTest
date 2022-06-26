@@ -7,6 +7,8 @@ import redis
 import time
 
 def saveAdData(adAccountId,adsList):
+    t = time.time()
+    
     url = "https://sino-channel-api-gateway.meetsocial.cn/sino_channel_tiktok/BQOqyonoI0qA/open_api/v1.2/ad/review_info/?advertiser_id={adAccountId}&ad_ids=[{adsList}]".format(
         adAccountId = adAccountId
         ,adsList = ",".join(adsList)
@@ -14,6 +16,8 @@ def saveAdData(adAccountId,adsList):
     req = urllib.request.Request(url=url, method='GET')
     response = urllib.request.urlopen(req).read()
     responseJson = json.loads(response)
+    t1 = time.time()
+    print("curl 时间:" + str(t1 - t) )
     if responseJson['data']['ad_review_map']:
         db = SqlLib()
         for value in responseJson['data']['ad_review_map'].values():
@@ -22,6 +26,8 @@ def saveAdData(adAccountId,adsList):
                 ,adData = json.dumps(value).replace("\\","\\\\").replace("\"","\\\"").replace("'","\\'")
             )
             db.update(sql)
+    print("入库 时间:" + str(time.time() - t1) )
+    print(time.time())
     print("saveAdData success!")
     return
 
