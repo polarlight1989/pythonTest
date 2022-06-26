@@ -44,6 +44,7 @@ def saveAdList(adAccountData,page=1):
             db.update("DELETE FROM TPGBR_1055 WHERE ad_id = '{ad_id}'".format(ad_id = str(item['ad_id'])))
             db.insert("TPGBR_1055",data)
     if responseJson['data']['page_info']['total_page'] > page:
+        print(str(page) + "/" + str(responseJson['data']['page_info']['total_page']) )
         page += 1
         saveAdList(adAccountData,page)
     return

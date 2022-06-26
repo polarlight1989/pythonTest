@@ -4,7 +4,7 @@
 import pymysql 
 
 CONFIG = {
-    'host': 'localhost',
+    'host': '192.168.20.42',
     'user': 'root',
     'passwd': '123123',
     'db': 'test',

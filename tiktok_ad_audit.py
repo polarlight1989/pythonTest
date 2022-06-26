@@ -22,11 +22,13 @@ def saveAdData(adAccountId,adsList):
                 ,adData = json.dumps(value).replace("\\","\\\\").replace("\"","\\\"").replace("'","\\'")
             )
             db.update(sql)
+    print("saveAdData success!")
     return
 
 def main():
+   
     db = SqlLib()
-    adList = db.select("select ad_account_id,ad_id from TPGBR_1055 where ad_audit_data is null order by  ad_account_id asc")
+    adList = db.select("select ad_account_id,ad_id from TPGBR_1055 where ad_audit_data is null order by  ad_account_id asc limit 1000")
     if len(adList) == 0:
         return True
     adAccountId = ""
@@ -46,6 +48,11 @@ def main():
     return False
 
 while True:
-    if main():
+    r = True
+    try:
+        r = main()
+    except Exception as e :
+        print(e)
+    if r:
         print("sleep")
-        time.sleep(30)
+        time.sleep(5)
