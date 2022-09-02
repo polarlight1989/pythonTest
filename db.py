@@ -4,9 +4,9 @@
 import pymysql 
 
 CONFIG = {
-    'host': 'localhost',
-    'user': 'root',
-    'passwd': '123123',
+    'host': '192.168.12.39',
+    'user': 'test',
+    'passwd': '636zWnk5$lka',
     'db': 'test',
     'port': 3306,
     'charset': 'utf8'
